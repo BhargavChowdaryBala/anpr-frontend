@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, ClipboardList, Activity, Bus, AlertCircle, RotateCcw, X, ChevronDown, Smartphone, FileVideo, Construction } from 'lucide-react';
 import './App.css';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
 function App() {
     const [logs, setLogs] = useState([]);
