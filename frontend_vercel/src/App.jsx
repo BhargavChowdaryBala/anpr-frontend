@@ -279,6 +279,11 @@ function App() {
         } catch (err) {
             console.error("Video analysis error:", err);
             setVProcessingStatus('error');
+            if (err.response && err.response.data && err.response.data.error) {
+                alert(err.response.data.error);
+            } else {
+                alert("Failed to connect to backend for video analysis.");
+            }
         }
     };
 
@@ -448,16 +453,13 @@ function App() {
 
                                             <div className="feed-media-container-large">
                                                 {appMode === 'live' ? (
-                                                    <img
-                                                        className="ai-feed-player-large"
-                                                        src={`${API_BASE}/video_feed?t=${Date.now()}`}
-                                                        alt="Live AI Feed"
-                                                        onError={(e) => {
-                                                            setTimeout(() => {
-                                                                if (e.target) e.target.src = `${API_BASE}/video_feed?t=${Date.now()}`;
-                                                            }, 2000);
-                                                        }}
-                                                    />
+                                                    <div className="feed-paused-overlay">
+                                                        <Activity size={40} opacity={0.3} />
+                                                        <p style={{ marginTop: '15px', color: '#8892b0' }}>
+                                                            Cloud Demo Mode Active. Continuous live CCTV streaming is disabled on the free tier to conserve server resources. <br /><br />
+                                                            Please use the <b>Image Checker</b> below for static plate analysis, or run the system locally for full Live Tracking.
+                                                        </p>
+                                                    </div>
                                                 ) : (
                                                     <div className="feed-paused-overlay">
                                                         <Activity size={40} opacity={0.3} />
